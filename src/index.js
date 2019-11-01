@@ -111,7 +111,6 @@ function updateDogDom(dog){
     }
 }
 
-
 function filterGoodDogs(){
     console.log('filtered button hit')
     let filterOption = event.target.innerText.split(':')[1]
