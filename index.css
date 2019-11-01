@@ -30,6 +30,7 @@
   align-items: center;
   border-radius: 2em;
   border: 1px solid blue;
+  cursor: pointer;
 }
 
 #dog-summary-container {
@@ -50,4 +51,20 @@
 
 body {
   margin: 0;
+  background: url(https://images.unsplash.com/photo-1440688807730-73e4e2169fb8?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80) center center fixed;
+  font-family: 'McLaren', cursive;
+}
+
+
+/* MY STYLES */
+.button-style{
+  margin-bottom: 5%;
+}
+
+.card-title {
+  color: white !important;
+}
+
+#dog-6 {
+  text-align: center;
 }
