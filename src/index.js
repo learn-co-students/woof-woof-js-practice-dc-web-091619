@@ -40,7 +40,7 @@ function renderAllDogs(){
 }
 
 function renderGoodDogs(){
-
+console.log("Rendering Good Boys")
     fetch('http://localhost:3000/pups')
     .then(response => response.json())
         .then(function(dogArray){
@@ -94,13 +94,12 @@ function getDogById(){
                     button.addEventListener("click", function(){
                         if(event.target.innerText === "Good Dog!"){
                             event.target.innerText = "Bad Dog!";
-                            dog.isGoodDog = false;
                             updateDogById(id, false);
                         }else if(event.target.innerText === "Bad Dog!"){
                             event.target.innerText = "Good Dog!";
-                            dog.isGoodDog = true;
                             updateDogById(id, true);
                         }
+
                     })
 
             })
@@ -117,5 +116,11 @@ function updateDogById(id, update){
         body: JSON.stringify({
             isGoodDog: update
         })
-    })
+    }).then(response => response.json())
+        .then(function(){
+            let filter = document.getElementById("good-dog-filter");
+            if(filter.innerText === "Filter good dogs: ON"){
+                renderGoodDogs();
+            }
+        })
 }
