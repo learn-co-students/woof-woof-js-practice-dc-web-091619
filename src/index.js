@@ -1,4 +1,13 @@
 document.addEventListener("DOMContentLoaded",()=>{
+    fetchAllDogs()
+
+    goodDogFilterButton().addEventListener("click", goodDogSwitch)
+
+})
+function fetchAllDogs(){
+    while (dogBar().firstChild){
+        dogBar().firstChild.remove()
+    }
     fetch(`http://localhost:3000/pups`)
     .then(response=>response.json())
     .then(dogObjs=> {
@@ -6,10 +15,7 @@ document.addEventListener("DOMContentLoaded",()=>{
             renderDog(dogObj)
         })
     })
-
-    goodDogFilterButton().addEventListener("click", goodDogFilter)
-
-})
+}
 
 function goodDogFilterButton(){
     return document.getElementById("good-dog-filter")
@@ -100,8 +106,23 @@ function toggleDogButton(goodBadDog){
 
 /////bonus AHHHHHHHHH OMGGGGGGGGGGGGG AHHHHHHHHHHHHH///////
 
-function goodDogFilter(event){
+function goodDogSwitch(event){
     event.preventDefault();
+
+    let switchStatus = goodDogFilterButton().innerText.split(" ")[3]
+        switch(switchStatus){
+            case "OFF":
+                goodDogFilterButton().innerText = "Filter good dogs: ON"
+                goodDogFilter()
+                break
+            case "ON":
+                goodDogFilterButton().innerText = "Filter good dogs: OFF"
+                fetchAllDogs()
+                break
+        }
+}
+
+function goodDogFilter(){
 
     while (dogBar().firstChild){
         dogBar().firstChild.remove()
@@ -109,9 +130,10 @@ function goodDogFilter(event){
     
     fetch(`http://localhost:3000/pups`)
     .then(response=>response.json())
-    .then(dogObjs=> {
-        dogObjs.filter(dog=>{
-            dog.
-        })
-    })
+    .then(dogObjs=>filterDogs(dogObjs))
+    goodDogFilterButton() 
+}
+
+function filterDogs(dogObjs){
+    dogObjs.filter(dog=>dog.isGoodDog === true).forEach(dog=>renderDog(dog))
 }
